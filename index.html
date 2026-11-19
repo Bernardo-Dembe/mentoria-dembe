@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="pt-AO">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081d3a">
+  <meta name="description" content="Mentoria Dembe — aulas do ensino básico até à 9.ª classe, Vendas e Marketing.">
+  <title>Mentoria Dembe | Aprenda. Evolua. Conquiste.</title>
+  <link rel="icon" href="./assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="./index.html"><img src="./assets/logo.svg" alt=""><span>MENTORIA <b>DEMBE</b><small>FORMAÇÃO · CONHECIMENTO · NEGÓCIOS</small></span></a>
+    <button class="menu-toggle" id="menu-toggle" aria-label="Abrir menu">☰</button>
+    <nav id="main-nav">
+      <a href="#inicio">Início</a><a href="#cursos">Cursos</a><a href="#produtos">Produtos</a>
+      <a href="#sobre">Sobre</a><a href="#contactos">Contactos</a>
+      <a class="button button-outline button-small" href="./admin.html">Área administrativa</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="hero-content">
+        <span class="eyebrow">MENTORIA DEMBE · ANGOLA</span>
+        <h1>Aprenda. Evolua.<br><span>Conquiste.</span></h1>
+        <p>Invista no seu conhecimento e desenvolva competências para a escola, para o trabalho e para os negócios.</p>
+        <div class="hero-actions"><a class="button" href="#cursos">Explorar cursos</a><a class="button button-light" href="#produtos">Ver produtos</a></div>
+        <div class="hero-note"><span class="hero-line"></span> Conhecimento que abre oportunidades.</div>
+      </div>
+      <div class="hero-panel">
+        <div class="panel-icon">✦</div><p class="panel-kicker">O SEU PRÓXIMO PASSO COMEÇA AQUI</p>
+        <h2>Formação para crescer com confiança.</h2>
+        <div class="panel-rule"></div>
+        <div class="panel-stat"><strong>01</strong><span>Ensino básico até à 9.ª classe</span></div>
+        <div class="panel-stat"><strong>02</strong><span>Vendas e Marketing</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="cursos">
+      <div class="section-heading"><div><span class="eyebrow">APRENDA CONNOSCO</span><h2>Cursos disponíveis</h2><p>Explore as formações e encontre a próxima oportunidade de aprendizagem.</p></div></div>
+      <div class="toolbar"><input id="course-search" type="search" placeholder="Pesquisar curso..." aria-label="Pesquisar cursos"><span id="course-count" class="muted"></span></div>
+      <div id="courses-grid" class="cards-grid"><div class="empty-state">A carregar cursos...</div></div>
+    </section>
+
+    <section class="section section-soft" id="produtos">
+      <div class="section-heading"><div><span class="eyebrow">LOJA DEMBE</span><h2>Produtos à venda</h2><p>Consulte os produtos disponíveis e contacte diretamente para comprar.</p></div></div>
+      <div class="toolbar"><input id="product-search" type="search" placeholder="Pesquisar produto..." aria-label="Pesquisar produtos"><span id="product-count" class="muted"></span></div>
+      <div id="products-grid" class="cards-grid"><div class="empty-state">A carregar produtos...</div></div>
+    </section>
+
+    <section class="about-section" id="sobre">
+      <div class="about-mark">MD</div>
+      <div><span class="eyebrow">QUEM SOMOS</span><h2>Conhecimento com propósito.</h2>
+        <p>A Mentoria Dembe promove aprendizagem e desenvolvimento de competências, com formações do ensino básico até à 9.ª classe e conteúdos de Vendas e Marketing.</p>
+        <p class="about-name">Bernardo Baveca Dembe <span>Formador</span></p>
+      </div>
+    </section>
+
+    <section class="contact-section" id="contactos">
+      <span class="eyebrow">FALE CONNOSCO</span><h2>Estamos disponíveis para ajudar.</h2>
+      <p>Para informações sobre cursos, produtos ou inscrições, entre em contacto diretamente com o formador.</p>
+      <div class="contact-actions"><a class="button" href="https://wa.me/244947466217" target="_blank" rel="noopener">Contactar pelo WhatsApp</a><a class="button button-outline" href="tel:+244947466217">Ligar agora</a></div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a class="brand brand-footer" href="./index.html"><img src="./assets/logo.svg" alt=""><span>MENTORIA <b>DEMBE</b><small>FORMAÇÃO · CONHECIMENTO · NEGÓCIOS</small></span></a>
+    <div class="footer-links"><a href="mailto:bernardodembe@gmail.com">E-mail</a><a href="https://www.facebook.com/share/1KkLNz21EZ/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook</a><a href="https://www.instagram.com/bernardodembe.Angola" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@bernardodembe" target="_blank" rel="noopener">TikTok</a></div>
+    <p>© <span id="year"></span> Mentoria Dembe. Todos os direitos reservados.</p>
+  </footer>
+  <script type="module" src="./js/public.js"></script>
+</body>
+</html>
