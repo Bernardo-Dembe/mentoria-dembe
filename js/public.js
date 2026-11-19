@@ -24,7 +24,7 @@ function productCard(p) {
 }
 function renderCourses() {
   const q = ($("#course-search").value || "").toLowerCase();
-  const list = courses.filter(c => `${c.title} ${c.category||""} ${c.summary||""}`.toLowerCase().includes(q));
+  const list = products.filter(p => `${p.title} ${p.description||""} ${p.location||""}`.toLowerCase().includes(q));
   $("#course-count").textContent = `${list.length} curso(s)`;
   $("#courses-grid").innerHTML = list.length ? list.map(courseCard).join("") : `<div class="empty-state">Ainda não existem cursos publicados nesta categoria.</div>`;
 }
