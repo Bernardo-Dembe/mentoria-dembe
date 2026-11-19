@@ -1,71 +1,296 @@
+
 <!doctype html>
 <html lang="pt-AO">
 <head>
-  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#081d3a"><title>Administração | Mentoria Dembe</title>
-  <link rel="icon" href="./assets/logo.svg" type="image/svg+xml"><link rel="stylesheet" href="./css/style.css">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#081d3a">
+  <title>Administração | Mentoria Dembe</title>
+  <link rel="icon" href="./assets/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./css/style.css">
 </head>
+
 <body class="admin-body">
-  <header class="site-header admin-header"><a class="brand" href="./index.html"><img src="./assets/logo.svg" alt=""><span>MENTORIA <b>DEMBE</b><small>PAINEL ADMINISTRATIVO</small></span></a><a href="./index.html" class="text-link">Ver website ↗</a></header>
+
+  <header class="site-header admin-header">
+    <a class="brand" href="./index.html">
+      <img src="./assets/logo.svg" alt="">
+      <span>
+        MENTORIA <b>DEMBE</b>
+        <small>PAINEL ADMINISTRATIVO</small>
+      </span>
+    </a>
+    <a href="./index.html" class="text-link">Ver website ↗</a>
+  </header>
+
   <main class="admin-wrap">
+
+    <!-- LOGIN -->
     <section id="login-view" class="login-card">
-      <span class="eyebrow">ACESSO RESTRITO</span><h1>Área administrativa</h1><p>Entre com a conta autorizada para gerir cursos e produtos.</p>
+      <span class="eyebrow">ACESSO RESTRITO</span>
+      <h1>Área administrativa</h1>
+      <p>Entre com a conta autorizada para gerir cursos e produtos.</p>
+
       <form id="login-form" class="form-stack">
-        <label>E-mail<input type="email" id="email" autocomplete="username" required placeholder="admin@exemplo.com"></label>
-        <label>Palavra-passe<input type="password" id="password" autocomplete="current-password" required placeholder="A sua palavra-passe"></label>
-        <button class="button button-full" type="submit">Entrar no painel</button><p id="login-message" class="form-message" role="status"></p>
+        <label>
+          E-mail
+          <input type="email" id="email" autocomplete="username" required placeholder="admin@exemplo.com">
+        </label>
+
+        <label>
+          Palavra-passe
+          <input type="password" id="password" autocomplete="current-password" required placeholder="A sua palavra-passe">
+        </label>
+
+        <button class="button button-full" type="submit">
+          Entrar no painel
+        </button>
+
+        <p id="login-message" class="form-message" role="status"></p>
       </form>
+
       <a class="back-link" href="./index.html">← Voltar ao website</a>
     </section>
 
+    <!-- PAINEL ADMINISTRATIVO -->
     <section id="dashboard-view" hidden>
-      <div class="dashboard-top"><div><span class="eyebrow">GESTÃO DA PLATAFORMA</span><h1>Painel administrativo</h1><p id="admin-email" class="muted"></p></div><button id="logout-button" class="button button-outline">Terminar sessão</button></div>
-      <div class="admin-stats"><article><span>Cursos publicados</span><strong id="course-total">0</strong></article><article><span>Produtos publicados</span><strong id="product-total">0</strong></article></div>
-      <div class="admin-tabs"><button class="tab-button active" data-tab="courses">Gerir cursos</button><button class="tab-button" data-tab="products">Gerir produtos</button></div>
 
+      <div class="dashboard-top">
+        <div>
+          <span class="eyebrow">GESTÃO DA PLATAFORMA</span>
+          <h1>Painel administrativo</h1>
+          <p id="admin-email" class="muted"></p>
+        </div>
+
+        <button id="logout-button" class="button button-outline">
+          Terminar sessão
+        </button>
+      </div>
+
+      <div class="admin-stats">
+        <article>
+          <span>Cursos publicados</span>
+          <strong id="course-total">0</strong>
+        </article>
+
+        <article>
+          <span>Produtos publicados</span>
+          <strong id="product-total">0</strong>
+        </article>
+      </div>
+
+      <div class="admin-tabs">
+        <button class="tab-button active" data-tab="courses">
+          Gerir cursos
+        </button>
+
+        <button class="tab-button" data-tab="products">
+          Gerir produtos
+        </button>
+      </div>
+
+      <!-- GESTÃO DE CURSOS -->
       <section id="courses-panel" class="admin-panel">
-        <div class="panel-heading"><div><h2>Cursos</h2><p>Adicione, edite ou retire cursos do catálogo.</p></div><button class="button" id="new-course">+ Novo curso</button></div>
-        <form id="course-form" class="editor-form" hidden>
-          <input type="hidden" id="course-id">
-          <h3 id="course-form-title">Adicionar curso</h3>
-          <div class="form-grid">
-            <label>Título do curso *<input id="course-title" required maxlength="140"></label>
-            <label>Categoria<input id="course-category" placeholder="Ex.: Ensino, Vendas, Marketing"></label>
-            <label class="span-2">Resumo curto<textarea id="course-summary" rows="2" maxlength="260"></textarea></label>
-            <label class="span-2">Descrição completa<textarea id="course-description" rows="5" required></textarea></label>
-            <label>Objetivos<textarea id="course-objectives" rows="3" placeholder="Um objetivo por linha"></textarea></label>
-            <label>Conteúdo programático<textarea id="course-content" rows="3" placeholder="Um tema por linha"></textarea></label>
-            <label>Como funciona<textarea id="course-how" rows="3"></textarea></label>
-            <label>Modalidade<input id="course-modality" placeholder="Online, presencial ou híbrido"></label>
-            <label>Localização<input id="course-location" placeholder="Ex.: Luanda, Angola"></label>
-            <label>Imagem do curso<input id="course-image" type="file" accept="image/png,image/jpeg,image/webp"></label>
-            <label>Estado<select id="course-status"><option value="draft">Rascunho</option><option value="published">Publicado</option></select></label>
-            <label class="check-label"><input id="course-featured" type="checkbox"> Destacar na página inicial</label>
+
+        <div class="panel-heading">
+          <div>
+            <h2>Cursos</h2>
+            <p>Adicione, edite ou retire cursos do catálogo.</p>
           </div>
-          <div class="form-actions"><button class="button" type="submit">Guardar curso</button><button class="button button-outline cancel-editor" type="button">Cancelar</button><span id="course-save-message" class="form-message"></span></div>
+
+          <button class="button" id="new-course">+ Novo curso</button>
+        </div>
+
+        <form id="course-form" class="editor-form" hidden>
+
+          <input type="hidden" id="course-id">
+
+          <h3 id="course-form-title">Adicionar curso</h3>
+
+          <div class="form-grid">
+
+            <label>
+              Título do curso *
+              <input id="course-title" required maxlength="140">
+            </label>
+
+            <label>
+              Categoria
+              <input id="course-category" placeholder="Ex.: Ensino, Vendas, Marketing">
+            </label>
+
+            <label class="span-2">
+              Resumo curto
+              <textarea id="course-summary" rows="2" maxlength="260"></textarea>
+            </label>
+
+            <label class="span-2">
+              Descrição completa
+              <textarea id="course-description" rows="5" required></textarea>
+            </label>
+
+            <label>
+              Objetivos
+              <textarea id="course-objectives" rows="3" placeholder="Um objetivo por linha"></textarea>
+            </label>
+
+            <label>
+              Conteúdo programático
+              <textarea id="course-content" rows="3" placeholder="Um tema por linha"></textarea>
+            </label>
+
+            <label>
+              Como funciona
+              <textarea id="course-how" rows="3"></textarea>
+            </label>
+
+            <label>
+              Modalidade
+              <input id="course-modality" placeholder="Online, presencial ou híbrido">
+            </label>
+
+            <label>
+              Localização
+              <input id="course-location" placeholder="Ex.: Luanda, Angola">
+            </label>
+
+            <label>
+              Preço do curso (Kz)
+              <input
+                id="course-price"
+                type="number"
+                min="0"
+                step="1"
+                placeholder="0 = Gratuito">
+            </label>
+
+            <label>
+              Duração do curso
+              <input
+                id="course-duration"
+                type="text"
+                placeholder="Ex.: 3 meses ou 60 horas">
+            </label>
+
+            <label>
+              Imagem do curso
+              <input id="course-image" type="file" accept="image/png,image/jpeg,image/webp">
+            </label>
+
+            <label>
+              Estado
+              <select id="course-status">
+                <option value="draft">Rascunho</option>
+                <option value="published">Publicado</option>
+              </select>
+            </label>
+
+            <label class="check-label">
+              <input id="course-featured" type="checkbox">
+              Destacar na página inicial
+            </label>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="button" type="submit">Guardar curso</button>
+
+            <button class="button button-outline cancel-editor" type="button">
+              Cancelar
+            </button>
+
+            <span id="course-save-message" class="form-message"></span>
+          </div>
+
         </form>
-        <div id="admin-courses-list" class="admin-list">A carregar...</div>
+
+        <div id="admin-courses-list" class="admin-list">
+          A carregar...
+        </div>
+
       </section>
 
+      <!-- GESTÃO DE PRODUTOS -->
       <section id="products-panel" class="admin-panel" hidden>
-        <div class="panel-heading"><div><h2>Produtos</h2><p>Gira o catálogo de produtos à venda.</p></div><button class="button" id="new-product">+ Novo produto</button></div>
-        <form id="product-form" class="editor-form" hidden>
-          <input type="hidden" id="product-id"><h3 id="product-form-title">Adicionar produto</h3>
-          <div class="form-grid">
-            <label>Nome do produto *<input id="product-title" required maxlength="140"></label>
-            <label>Preço em Kz *<input id="product-price" type="number" min="0" step="1" required></label>
-            <label class="span-2">Descrição completa<textarea id="product-description" rows="4" required></textarea></label>
-            <label>Localização<input id="product-location" placeholder="Ex.: Luanda, Angola"></label>
-            <label>Estado<select id="product-status"><option value="draft">Rascunho</option><option value="published">Publicado</option><option value="sold_out">Esgotado</option></select></label>
-            <label>Imagem do produto<input id="product-image" type="file" accept="image/png,image/jpeg,image/webp"></label>
+
+        <div class="panel-heading">
+          <div>
+            <h2>Produtos</h2>
+            <p>Gira o catálogo de produtos à venda.</p>
           </div>
-          <div class="form-actions"><button class="button" type="submit">Guardar produto</button><button class="button button-outline cancel-editor" type="button">Cancelar</button><span id="product-save-message" class="form-message"></span></div>
+
+          <button class="button" id="new-product">+ Novo produto</button>
+        </div>
+
+        <form id="product-form" class="editor-form" hidden>
+
+          <input type="hidden" id="product-id">
+
+          <h3 id="product-form-title">Adicionar produto</h3>
+
+          <div class="form-grid">
+
+            <label>
+              Nome do produto *
+              <input id="product-title" required maxlength="140">
+            </label>
+
+            <label>
+              Preço em Kz *
+              <input id="product-price" type="number" min="0" step="1" required>
+            </label>
+
+            <label class="span-2">
+              Descrição completa
+              <textarea id="product-description" rows="4" required></textarea>
+            </label>
+
+            <label>
+              Localização
+              <input id="product-location" placeholder="Ex.: Luanda, Angola">
+            </label>
+
+            <label>
+              Estado
+              <select id="product-status">
+                <option value="draft">Rascunho</option>
+                <option value="published">Publicado</option>
+                <option value="sold_out">Esgotado</option>
+              </select>
+            </label>
+
+            <label>
+              Imagem do produto
+              <input id="product-image" type="file" accept="image/png,image/jpeg,image/webp">
+            </label>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="button" type="submit">Guardar produto</button>
+
+            <button class="button button-outline cancel-editor" type="button">
+              Cancelar
+            </button>
+
+            <span id="product-save-message" class="form-message"></span>
+          </div>
+
         </form>
-        <div id="admin-products-list" class="admin-list">A carregar...</div>
+
+        <div id="admin-products-list" class="admin-list">
+          A carregar...
+        </div>
+
       </section>
+
       <p id="dashboard-message" class="form-message" role="status"></p>
+
     </section>
+
   </main>
+
   <script type="module" src="./js/admin.js"></script>
+
 </body>
 </html>
