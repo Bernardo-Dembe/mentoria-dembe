@@ -14,6 +14,7 @@ if ($("#year")) {
   $("#year").textContent = new Date().getFullYear();
 }
 
+// MENU
 if ($("#menu-toggle") && $("#main-nav")) {
   $("#menu-toggle").addEventListener("click", () => {
     $("#main-nav").classList.toggle("open");
@@ -29,15 +30,31 @@ if ($("#menu-toggle") && $("#main-nav")) {
 let courses = [];
 let products = [];
 
+// FORMATAR PREÇO DO CURSO
+function coursePrice(price) {
+  if (
+    price === null ||
+    price === undefined ||
+    price === "" ||
+    Number(price) === 0
+  ) {
+    return "Gratuito";
+  }
+
+  return moneyAOA(price);
+}
+
 // CARTÃO DE CURSO
 function courseCard(c) {
   const summary = c.summary || c.description || "";
 
   return `
     <article class="content-card">
+
       ${imageOrPlaceholder(c.image_url, c.title)}
 
       <div class="card-body">
+
         <span class="card-category">
           ${escapeHTML(c.category || "Formação")}
         </span>
@@ -49,14 +66,28 @@ function courseCard(c) {
           ${summary.length > 150 ? "…" : ""}
         </p>
 
-        <div class="card-bottom">
-          <span></span>
+        <div class="course-public-info">
+          <p>
+            <strong>Preço:</strong>
+            ${coursePrice(c.price)}
+          </p>
 
-          <a class="card-link"
-             href="./curso.html?id=${encodeURIComponent(c.id)}">
+          <p>
+            <strong>Duração:</strong>
+            ${escapeHTML(c.duration || "Não definida")}
+          </p>
+        </div>
+
+        <div class="card-bottom">
+
+          <a
+            class="card-link"
+            href="./curso.html?id=${encodeURIComponent(c.id)}">
             Ver detalhes →
           </a>
+
         </div>
+
       </div>
     </article>
   `;
@@ -66,9 +97,11 @@ function courseCard(c) {
 function productCard(p) {
   return `
     <article class="content-card">
+
       ${imageOrPlaceholder(p.image_url, p.title)}
 
       <div class="card-body">
+
         <span class="card-category">
           ${p.status === "sold_out" ? "Esgotado" : "Produto disponível"}
         </span>
@@ -80,15 +113,19 @@ function productCard(p) {
         </p>
 
         <div class="card-bottom">
+
           <strong class="card-price">
             ${moneyAOA(p.price)}
           </strong>
 
-          <a class="card-link"
-             href="./produto.html?id=${encodeURIComponent(p.id)}">
+          <a
+            class="card-link"
+            href="./produto.html?id=${encodeURIComponent(p.id)}">
             Ver produto →
           </a>
+
         </div>
+
       </div>
     </article>
   `;
@@ -112,9 +149,11 @@ function renderCourses() {
   if ($("#courses-grid")) {
     $("#courses-grid").innerHTML = list.length
       ? list.map(courseCard).join("")
-      : `<div class="empty-state">
-           Ainda não existem cursos publicados nesta categoria.
-         </div>`;
+      : `
+        <div class="empty-state">
+          Ainda não existem cursos publicados nesta categoria.
+        </div>
+      `;
   }
 }
 
@@ -136,9 +175,11 @@ function renderProducts() {
   if ($("#products-grid")) {
     $("#products-grid").innerHTML = list.length
       ? list.map(productCard).join("")
-      : `<div class="empty-state">
-           Ainda não existem produtos publicados.
-         </div>`;
+      : `
+        <div class="empty-state">
+          Ainda não existem produtos publicados.
+        </div>
+      `;
   }
 }
 
@@ -226,6 +267,7 @@ if (
 ) {
   document.body.innerHTML = `
     <header class="site-header">
+
       <a class="brand" href="./index.html">
         <img src="./assets/logo.svg" alt="">
 
@@ -238,6 +280,7 @@ if (
       <a href="./index.html" class="text-link">
         ← Voltar
       </a>
+
     </header>
 
     <main class="detail-wrap" id="detail">
@@ -253,9 +296,11 @@ if (
       .eq("status", "published")
       .maybeSingle();
 
-    const el = document.querySelector("#detail");
+    const el = $("#detail");
 
     if (error || !data) {
+      console.error("Erro ao carregar detalhes do curso:", error);
+
       el.innerHTML = `
         <div class="empty-state">
           Curso não encontrado ou indisponível.
@@ -271,9 +316,11 @@ if (
 
       el.innerHTML = `
         <article class="detail-card">
+
           ${imageOrPlaceholder(data.image_url, data.title)}
 
           <div class="detail-content">
+
             <span class="eyebrow">
               ${escapeHTML(data.category || "FORMAÇÃO")}
             </span>
@@ -284,30 +331,19 @@ if (
               ${escapeHTML(data.summary || "")}
             </p>
 
-            <h2>Sobre o curso</h2>
+            <!-- PREÇO E DURAÇÃO -->
+            <div class="detail-meta course-public-info">
 
-            <p>${escapeHTML(data.description || "")}</p>
+              <p>
+                <b>Preço do curso:</b>
+                ${coursePrice(data.price)}
+              </p>
 
-            ${
-              data.objectives
-                ? `<h2>Objetivos</h2><ul>${lines(data.objectives)}</ul>`
-                : ""
-            }
+              <p>
+                <b>Duração:</b>
+                ${escapeHTML(data.duration || "Não definida")}
+              </p>
 
-            ${
-              data.content
-                ? `<h2>Conteúdo programático</h2><ul>${lines(data.content)}</ul>`
-                : ""
-            }
-
-            ${
-              data.how_it_works
-                ? `<h2>Como vai funcionar</h2>
-                   <p>${escapeHTML(data.how_it_works)}</p>`
-                : ""
-            }
-
-            <div class="detail-meta">
               ${
                 data.modality
                   ? `<p><b>Modalidade:</b> ${escapeHTML(data.modality)}</p>`
@@ -319,25 +355,66 @@ if (
                   ? `<p><b>Localização:</b> ${escapeHTML(data.location)}</p>`
                   : ""
               }
+
             </div>
 
+            <h2>Sobre o curso</h2>
+
+            <p>
+              ${escapeHTML(data.description || "")}
+            </p>
+
+            ${
+              data.objectives
+                ? `
+                  <h2>Objetivos</h2>
+                  <ul>${lines(data.objectives)}</ul>
+                `
+                : ""
+            }
+
+            ${
+              data.content
+                ? `
+                  <h2>Conteúdo programático</h2>
+                  <ul>${lines(data.content)}</ul>
+                `
+                : ""
+            }
+
+            ${
+              data.how_it_works
+                ? `
+                  <h2>Como vai funcionar</h2>
+                  <p>${escapeHTML(data.how_it_works)}</p>
+                `
+                : ""
+            }
+
             <div class="contact-actions">
-              <a class="button"
-                 href="${whatsappLink("Olá, gostaria de obter informações sobre o curso: " + data.title)}"
-                 target="_blank"
-                 rel="noopener">
+
+              <a
+                class="button"
+                href="${whatsappLink("Olá, gostaria de obter informações sobre o curso: " + data.title)}"
+                target="_blank"
+                rel="noopener">
                 Contactar pelo WhatsApp
               </a>
 
-              <a class="button button-outline"
-                 href="tel:+244947466217">
+              <a
+                class="button button-outline"
+                href="tel:+244947466217">
                 Ligar ao formador
               </a>
+
             </div>
+
           </div>
         </article>
       `;
     }
+  } else {
+    $("#detail").innerHTML = showConfigWarning();
   }
 }
 
@@ -348,6 +425,7 @@ if (
 ) {
   document.body.innerHTML = `
     <header class="site-header">
+
       <a class="brand" href="./index.html">
         <img src="./assets/logo.svg" alt="">
 
@@ -358,6 +436,7 @@ if (
       <a href="./index.html#produtos" class="text-link">
         ← Voltar aos produtos
       </a>
+
     </header>
 
     <main class="detail-wrap" id="detail">
@@ -373,9 +452,11 @@ if (
       .eq("status", "published")
       .maybeSingle();
 
-    const el = document.querySelector("#detail");
+    const el = $("#detail");
 
     if (error || !data) {
+      console.error("Erro ao carregar detalhes do produto:", error);
+
       el.innerHTML = `
         <div class="empty-state">
           Produto não encontrado ou indisponível.
@@ -384,9 +465,11 @@ if (
     } else {
       el.innerHTML = `
         <article class="detail-card">
+
           ${imageOrPlaceholder(data.image_url, data.title)}
 
           <div class="detail-content">
+
             <span class="eyebrow">PRODUTO</span>
 
             <h1>${escapeHTML(data.title)}</h1>
@@ -397,7 +480,9 @@ if (
 
             <h2>Descrição</h2>
 
-            <p>${escapeHTML(data.description || "")}</p>
+            <p>
+              ${escapeHTML(data.description || "")}
+            </p>
 
             ${
               data.location
@@ -406,25 +491,34 @@ if (
             }
 
             <div class="contact-actions">
+
               ${
                 data.status === "sold_out"
                   ? `<span class="status-pill">Esgotado</span>`
-                  : `<a class="button"
-                       href="${whatsappLink("Olá, tenho interesse no produto: " + data.title + " — " + moneyAOA(data.price))}"
-                       target="_blank"
-                       rel="noopener">
-                       Comprar pelo WhatsApp
-                     </a>`
+                  : `
+                    <a
+                      class="button"
+                      href="${whatsappLink("Olá, tenho interesse no produto: " + data.title + " — " + moneyAOA(data.price))}"
+                      target="_blank"
+                      rel="noopener">
+                      Comprar pelo WhatsApp
+                    </a>
+                  `
               }
 
-              <a class="button button-outline"
-                 href="tel:+244947466217">
+              <a
+                class="button button-outline"
+                href="tel:+244947466217">
                 Ligar
               </a>
+
             </div>
+
           </div>
         </article>
       `;
     }
+  } else {
+    $("#detail").innerHTML = showConfigWarning();
   }
 }
